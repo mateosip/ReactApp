@@ -30,6 +30,7 @@ class App extends Component {
       [
         {
           view: false,
+          notas:false,
           subject: "Programacion I",
           id: 1,
           course: 1,
@@ -44,8 +45,8 @@ class App extends Component {
             {
               view: true,
               id: 2,
-              name: "Luis Rodri",
-              mark: 4
+              name: "Rocio Ruiz Ruiz",
+              mark: 10
             },
             {
               view: true,
@@ -57,6 +58,7 @@ class App extends Component {
         },
         {
           view: false,
+          notas:false,
           subject: "Estructura de Datos",
           id: 2,
           course: 1,
@@ -71,8 +73,8 @@ class App extends Component {
             {
               view: true,
               id: 2,
-              name: "Luis Rodri",
-              mark: 4
+              name: "Rocio Ruiz Ruiz",
+              mark: 10
             },
             {
               view: true,
@@ -84,6 +86,7 @@ class App extends Component {
         },
         {
           view: false,
+          notas:false,
           subject: "Java",
           id: 3,
           course: 2,
@@ -111,6 +114,7 @@ class App extends Component {
         },
         {
           view: false,
+          notas:false,
           subject: "Backend",
           id: 4,
           course: 3,
@@ -161,11 +165,39 @@ class App extends Component {
     }
     this.setState({ subjects });
   }
-  courseClickHandler = course => {//ES UN ENTERO, 1 2 3 Ó 0
+  courseClickHandler = (course) => {//ES UN ENTERO, 1 2 3 Ó 0
+    
     this.setState({ courseFilter: course });
   }
   gradeClickHandler = (mark) => {
+    
     this.setState({ studentFilter: mark })
+  }
+  showMarks = (subjectName) =>{
+    const subjects = cloneDeep(this.state.subjects);
+    const subject = subjects.find(subj => subj.subject === subjectName)
+    if(subject){
+      subject.notas = !subject.notas;
+    }
+    this.setState({subjects});
+  }
+  changeMarks = (subjectName, studentName) => {
+    
+    
+    const subjects = cloneDeep(this.state.subjects);
+    const subject = subjects.find(subj => subj.subject === subjectName);
+    if(subject){
+      const student = subject.students.find(stu => stu.name === studentName);
+      if(student){
+        let valor = document.getElementById(student.id).value;
+        valor = parseFloat(valor);
+        if (isNaN(valor))valor = 0;
+        if (valor > 10) valor = 10;
+        if (valor < 0) valor = 0;
+        student.mark = valor ;//ESte student hace referencia al student en general, con todos sus campos
+      }
+    }
+    this.setState({subjects});
   }
   render() {
     return (
@@ -180,6 +212,8 @@ class App extends Component {
           subjects={this.state.subjects}
           subjectOnClick={this.subjectClickHandler}
           studentOnClick={this.studentClickHandler}
+          showMarks={this.showMarks}
+          changeMarks={this.changeMarks}
         />
 
       </div>

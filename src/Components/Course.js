@@ -2,19 +2,20 @@ import React from 'react';
 import "./Styles.css";
 
 const course = (props) => {
-    const { courseOnClick } = props;
+    console.log(props);
+    const { courseOnclick } = props;
     return (
         <div className="Course">
-            <div className="child" onClick={() => courseOnClick(1)}>
+            <div className="child" onClick={() => courseOnclick(1)}>
                 1
             </div>
-            <div className="child" onClick={() => courseOnClick(2)}>
+            <div className="child" onClick={() => courseOnclick(2)}>
                 2
             </div>
-            <div className="child" onClick={() => courseOnClick(3)}>
+            <div className="child" onClick={() => courseOnclick(3)}>
                 3
             </div>
-            <div className="child" onClick={() => courseOnClick(0)}>
+            <div className="child" onClick={() => courseOnclick(0)}>
                 All
             </div>
         </div>

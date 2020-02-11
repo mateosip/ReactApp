@@ -5,8 +5,8 @@ import "./Styles.css";
 
 //PONER LO DE FILTRAR ANTES DE VIEW
 const subject = (props) => {
-    const { subject, course, teacher, students, view } = props.subject;
-    const { subjectOnClick, studentOnClick,courseFilter,studentFilter } = props;
+    const { subject, course, teacher, students, view,notas } = props.subject;
+    const { subjectOnClick, studentOnClick,courseFilter,studentFilter,showMarks,changeMarks } = props;
         
     return (
         <div className="Subject">
@@ -21,7 +21,10 @@ const subject = (props) => {
                         subject={subject}
                         studentOnClick={studentOnClick}
                         studentFilter={studentFilter}
+                        notas={notas}
+                        changeMarks={changeMarks}
                     ></Student>
+                    <button onClick={() => showMarks(subject)}>Show</button>
                 </div>
                 )
                 :
